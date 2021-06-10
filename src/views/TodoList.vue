@@ -57,7 +57,11 @@
           v-for="(item, index) in filterTodos"
           :key="index"
         >
-          <div class="d-flex align-items-center">
+          <div
+            class="d-flex align-items-center"
+            @dblclick.prevent="editTodo(item)"
+            v-if="item.id !== catchTodo.id"
+          >
             <div class="form-check">
               <input
                 type="checkbox"
@@ -77,19 +81,27 @@
               type="button"
               class="btn close ms-auto"
               aria-label="Close"
-              @click="delTodo(index)"
+              @click="delTodo(item)"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <input
+            type="text"
+            class="form-control"
+            v-if="item.id == catchTodo.id"
+            v-model="catchTitle"
+            @keyup.enter="doenEdit(item)"
+            @keyup.esc="cancleEdit()"
+          />
         </li>
-        <li class="list-group-item">
+        <!-- <li class="list-group-item">
           <input type="text" class="form-control" />
-        </li>
+        </li> -->
       </ul>
       <div class="card-footer d-flex justify-content-between">
-        <span>還有 3 筆任務未完成</span>
-        <a href="#">清除所有任務</a>
+        <span>還有 {{ todos.length }} 筆任務未完成</span>
+        <a href="#" @click.prevent="clearAllTodo">清除所有任務</a>
       </div>
     </div>
   </div>
@@ -102,10 +114,20 @@ export default {
     return {
       newTodo: '',
       todos: [],
+      catchTodo: {},
+      catchTitle: '',
       tagActive: 'all',
     };
   },
   methods: {
+    setLocalStorage() {
+      const todoList = JSON.stringify(this.todos);
+      localStorage.setItem('todo-list', todoList);
+    },
+    getLocalStorage() {
+      const todoList = JSON.parse(localStorage.getItem('todo-list'));
+      this.todos = todoList;
+    },
     addTodo() {
       if (!this.newTodo) {
         return;
@@ -118,10 +140,35 @@ export default {
         completed: false,
       });
       this.newTodo = '';
+      this.setLocalStorage();
     },
-    delTodo(index) {
+    delTodo(todo) {
+      const index = this.todos.findIndex((item) => item.id === todo.id);
       this.todos.splice(index, 1);
+      this.setLocalStorage();
     },
+    editTodo(item) {
+      this.catchTodo = item;
+      this.catchTitle = item.title;
+      this.setLocalStorage();
+    },
+    doenEdit(item) {
+      // eslint-disable-next-line no-param-reassign
+      item.title = this.catchTitle;
+      this.catchTitle = '';
+      this.catchTodo = {};
+      this.setLocalStorage();
+    },
+    cancleEdit() {
+      this.catchTodo = {};
+    },
+    clearAllTodo() {
+      this.todos = [];
+      this.setLocalStorage();
+    },
+  },
+  mounted() {
+    this.getLocalStorage();
   },
   computed: {
     filterTodos() {
