@@ -2,4 +2,9 @@
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/vue-todolist/' : '/',
+  configureWebpack: {
+    performance: {
+      hints: false,
+    },
+  },
 };
