@@ -10,10 +10,10 @@
         class="form-control"
         placeholder="準備要做的任務"
         v-model="newTodo"
-        @keyup.enter="addTodo"
+        @keyup.enter="addTodo()"
       />
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="addTodo">
+        <button class="btn btn-primary" type="button" @click="addTodo()">
           新增
         </button>
       </div>
