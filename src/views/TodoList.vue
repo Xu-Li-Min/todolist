@@ -174,7 +174,7 @@ export default {
     filterTodos() {
       let newTodo = [];
       if (this.tagActive === 'all') {
-        newTodo = [...this.todos];
+        newTodo = this.todos;
       } else if (this.tagActive === 'process') {
         this.todos.forEach((item) => {
           if (!item.completed) {
