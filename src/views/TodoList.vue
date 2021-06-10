@@ -1,3 +1,4 @@
+/* eslint-disable to ignore the next line. */
 <template>
   <div id="app" class="container my-3">
     <div class="input-group mb-3">
@@ -119,7 +120,6 @@ export default {
       this.newTodo = '';
     },
     delTodo(index) {
-      console.log(index);
       this.todos.splice(index, 1);
     },
   },
