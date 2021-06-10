@@ -139,11 +139,14 @@ export default {
       }
       const todoId = Math.floor(Date.now());
       const todoTitle = this.newTodo.trim();
-      this.todos.push({
-        id: todoId,
-        title: todoTitle,
-        completed: false,
-      });
+      if (todoId && todoTitle) {
+        this.todos.push({
+          id: todoId,
+          title: todoTitle,
+          completed: false,
+        });
+      }
+
       this.newTodo = '';
       this.setLocalStorage();
     },
