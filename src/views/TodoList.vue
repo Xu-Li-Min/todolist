@@ -102,7 +102,7 @@
       <div class="card-footer d-flex justify-content-between">
         <span
           >還有
-          <span v-if="todos.length !== 0">{{ todos.length }}</span>
+          <span v-if="todos">{{ todos.length }}</span>
           <span v-else>0</span>
           筆任務未完成</span
         >
