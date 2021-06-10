@@ -100,7 +100,12 @@
         </li> -->
       </ul>
       <div class="card-footer d-flex justify-content-between">
-        <span>還有 {{ todos.length }} 筆任務未完成</span>
+        <span
+          >還有
+          <span v-if="todos.length !== 0">{{ todos.length }}</span>
+          <span v-else>0</span>
+          筆任務未完成</span
+        >
         <a href="#" @click.prevent="clearAllTodo">清除所有任務</a>
       </div>
     </div>
