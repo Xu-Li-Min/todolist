@@ -1,7 +1,5 @@
 # vue-todolist
 
-連結網址：https://xu-li-min.github.io/vue-todolist/#/
-
 ## Project setup
 
 ```
