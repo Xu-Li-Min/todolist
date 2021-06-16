@@ -139,19 +139,12 @@ export default {
       }
       const todoId = Math.floor(Date.now());
       const todoTitle = this.newTodo.trim();
-      this.todos = [
-        ...this.todos,
-        {
-          id: todoId,
-          title: todoTitle,
-          completed: false,
-        },
-      ];
-      // this.todos.push({
-      //   id: todoId,
-      //   title: todoTitle,
-      //   completed: false,
-      // });
+
+      this.todos.push({
+        id: todoId,
+        title: todoTitle,
+        completed: false,
+      });
 
       this.newTodo = '';
       this.setLocalStorage();
