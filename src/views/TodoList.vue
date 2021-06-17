@@ -131,7 +131,7 @@ export default {
     },
     getLocalStorage() {
       const todoList = JSON.parse(localStorage.getItem('todo-list'));
-      this.todos = todoList;
+      this.todos = todoList || [];
     },
     addTodo() {
       if (!this.newTodo) {
