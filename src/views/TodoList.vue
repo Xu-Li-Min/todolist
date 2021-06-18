@@ -52,11 +52,7 @@
         </ul>
       </div>
       <ul class="list-group list-group-flush text-left">
-        <li
-          class="list-group-item"
-          v-for="(item, index) in filterTodos"
-          :key="index"
-        >
+        <li class="list-group-item" v-for="(item, index) in filterTodos" :key="index">
           <div
             class="d-flex align-items-center"
             @dblclick.prevent="editTodo(item)"
@@ -102,7 +98,7 @@
       <div class="card-footer d-flex justify-content-between">
         <span
           >還有
-          <span v-if="todos">{{ todos.length }}</span>
+          <span v-if="todos">{{ countTodos.length }}</span>
           <span v-else>0</span>
           筆任務未完成</span
         >
@@ -122,6 +118,7 @@ export default {
       catchTodo: {},
       catchTitle: '',
       tagActive: 'all',
+      todoCount: 0,
     };
   },
   methods: {
@@ -196,6 +193,9 @@ export default {
         });
       }
       return newTodo;
+    },
+    countTodos() {
+      return this.todos.filter((item) => !item.completed);
     },
   },
 };
