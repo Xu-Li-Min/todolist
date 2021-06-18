@@ -18,6 +18,7 @@
         </button>
       </div>
     </div>
+    <p class="text-danger" :class="{ 'd-none': isNewTodo }">已有相同代辦事項名稱</p>
     <div class="card text-center">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
@@ -119,6 +120,7 @@ export default {
       catchTitle: '',
       tagActive: 'all',
       todoCount: 0,
+      isNewTodo: true,
     };
   },
   methods: {
@@ -134,17 +136,26 @@ export default {
       if (!this.newTodo) {
         return;
       }
-      const todoId = Math.floor(Date.now());
-      const todoTitle = this.newTodo.trim();
 
-      this.todos.push({
-        id: todoId,
-        title: todoTitle,
-        completed: false,
-      });
+      const isNew = this.todos.findIndex((item) => item.title === this.newTodo.trim());
 
-      this.newTodo = '';
-      this.setLocalStorage();
+      if (isNew !== -1) {
+        this.isNewTodo = false;
+      } else {
+        this.isNewTodo = true;
+
+        const todoId = Math.floor(Date.now());
+        const todoTitle = this.newTodo.trim();
+
+        this.todos.push({
+          id: todoId,
+          title: todoTitle,
+          completed: false,
+        });
+
+        this.newTodo = '';
+        this.setLocalStorage();
+      }
     },
     delTodo(todo) {
       const index = this.todos.findIndex((item) => item.id === todo.id);
